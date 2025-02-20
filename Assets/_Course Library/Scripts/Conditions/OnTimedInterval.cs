@@ -13,12 +13,22 @@ public class OnTimedInterval : MonoBehaviour
     [Tooltip("The maximum range")]
     public float maxInterval = 1.0f;
 
+    private Coroutine _coroutine;
+
     // Called once the wait is over
     public UnityEvent OnIntervalElapsed = new UnityEvent();
 
+    public void StopInterval()
+    {
+        if(_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+        }
+    }
+
     private void Start()
     {
-        StartCoroutine(IntervalRoutine());
+        _coroutine = StartCoroutine(IntervalRoutine());
     }
 
     private IEnumerator IntervalRoutine()
